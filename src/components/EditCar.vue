@@ -161,7 +161,7 @@ export default {
         },
         onUpload() {
             var selectedFile = this.selectedFile
-            var image_src = this.image_src
+            var self = this
             var filename = selectedFile.name
             var storageRef = firebase.storage().ref();
 
@@ -181,7 +181,7 @@ export default {
                 // Upload completed successfully, now we can get the download URL
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                     // console.log(downloadURL);
-                    image_src = downloadURL
+                    self.image_src = downloadURL
                     /* eslint-disable */
                     console.log(image_src)
                 }).catch(err => {

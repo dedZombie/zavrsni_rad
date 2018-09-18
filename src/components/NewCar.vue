@@ -1,6 +1,5 @@
 <template>
     <div id="new-car">
-
         <div class="row">
             <form @submit.prevent="saveCar" class="col s12">
                 <div class="row">
@@ -70,7 +69,8 @@
                             style="display: none" 
                             type="file"
                             @change="onFileSelected"
-                            ref="fileInput">
+                            ref="fileInput"
+                            multiple>
                         <button @click="$refs.fileInput.click()" class="btn btn-large right w-50">Select image</button>
                     </div>
                     <div class="col s6 m6 l6">
@@ -81,6 +81,25 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row" id="preloaderWrapper">
+            <div class="preloader-wrapper big active" id="preloader">
+                <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+                </div>
+            </div>
+            <span id="preloder-text">Uploading...</span>
+        </div>
+
+        <div class="row white z-depth-3" id="upload-completed">
+            <span class="indigo-text">Image uploaded successfully</span>
         </div>
     </div>
 </template>
@@ -113,23 +132,28 @@ export default {
         onFileSelected(event){
             this.selectedFile = event.target.files[0]
             /* eslint-disable */
-            console.log(this.selectedFile)
+            console.log('Selected file: ', this.selectedFile)
         },
         onUpload() {
             var selectedFile = this.selectedFile
             /* eslint-disable */
-            console.log(selectedFile)
+            console.log('Selected file to upload: ', selectedFile)
             var self = this
             var filename = selectedFile.name
             var storageRef = firebase.storage().ref(this.name);
 
             var metadata = {
-                contentType: 'image/jpeg'
+                contentType: selectedFile.type
             }
+            /* eslint-disable */
+            console.log('Metadata: ', metadata)
+
             var uploadTask = storageRef.child(filename).put(selectedFile, metadata);
 
             uploadTask.on('state_changed', function(snapshot) {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                var preloader = document.getElementById('preloaderWrapper')
+                preloader.style.display = 'block'
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log('Upload is ' + progress + '% done');
             }, function(error) {
@@ -137,10 +161,16 @@ export default {
             }, function() {
                 // Upload completed successfully, now we can get the download URL
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    var preloader = document.getElementById('preloaderWrapper')
+                    var uploadCompleted = document.getElementById('upload-completed')
+                    preloader.style.display = 'none'
+                    // setTimeout(function(){ uploadCompleted.style.display = 'block' }, 2000)
+                    var uploadCompletedDisplay = setInterval(uploadCompleted.style.display = 'block', 2000)
+                    clearInterval(uploadCompletedDisplay)
                     // console.log(downloadURL);
                     self.image_src = downloadURL
                     /* eslint-disable */
-                    console.log(self.image_src)
+                    console.log('Image source: ', self.image_src)
                 }).catch(err => {
                     /* eslint-disable */
                     console.log(err)
@@ -169,6 +199,43 @@ export default {
 </script>
 
 <style scoped>
+#preloaderWrapper {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    padding: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    border-radius: 15px;
+    display: none;
+    margin: 0;
+}
+#preloader {
+    position: relative;
+}
+#preloder-text {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    font-size: 1.2rem;
+    margin-left: -10px;
+}
+#upload-completed {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0;
+    padding: 15px;
+    border-radius: 25px;
+    display: none;
+}
+#upload-completed span {
+    font-size: 1.75rem;
+    font-style: italic;
+}
 #upload-btn {
     margin-left: auto;
     margin-right: auto;

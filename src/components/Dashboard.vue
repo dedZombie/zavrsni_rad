@@ -1,5 +1,9 @@
 <template>
     <div id="dashboard">
+        <div class="row">
+            
+        </div>
+
         <h3 class="white-text">{{ message }}</h3>
         <div class="row">
             <div class="col s12 m6 l4" v-for="vehicle in vehicles" :key="vehicle.id">
@@ -22,6 +26,8 @@
             </div>
         </div>
 
+        <!-- <button>See all...</button> -->
+
         <div class="fixed-action-btn">
             <router-link to="/new" class="btn-floating btn-large pulse red">
                 <i class="large material-icons">add</i>
@@ -37,7 +43,7 @@ export default {
     name: 'dashboard',
     data() {
         return {
-            message: 'Dashboard Component',
+            message: 'Most recently Added',
             vehicles: []
         }
     },
@@ -66,6 +72,9 @@ export default {
 </script>
 
 <style scoped>
+h3{
+    padding-left: .75rem;
+}
 .card-image .card-title{
     font-size: 16px;
 }

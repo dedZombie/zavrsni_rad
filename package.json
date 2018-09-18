@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "firebase": "^5.5.0",
+    "vlightbox": "^2.0.2",
     "vue": "^2.5.17",
+    "vue-gallery": "^1.4.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

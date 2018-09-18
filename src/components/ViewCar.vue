@@ -14,8 +14,10 @@
             
             <div class="card horizontal">
                 <div class="card-image">
-                    <!-- <img src="https://via.placeholder.com/650x450"> -->
-                    <img :src="image_src" alt="" class="responsive-img">
+                    <!-- <img :src="image_src" alt="" class="responsive-img"> -->
+                    <lightbox 
+                        :images="images">
+                    </lightbox>
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
@@ -44,6 +46,9 @@
 
 <script>
 import db from './firebaseInit'
+import Vue from 'vue'
+import lightbox from 'vlightbox'
+Vue.use(lightbox)
 
 export default {
     name: 'view-car',
@@ -60,8 +65,20 @@ export default {
             power: null,
             price: null,
             type: null,
-            year: null
+            year: null,
+            images: []
         }
+    },
+    created() {
+        db.collection('vehicles').where('car_id', '==', this.$route.params.car_id).get().then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                const data = {
+                    'image_src': doc.data().image_src
+                }
+                this.images.push({src: data.image_src})
+                console.log(this.images)
+            })
+        })
     },
     beforeRouteEnter(to, from, next) {
         db.collection('vehicles').where('car_id', '==', to.params.car_id).get()
