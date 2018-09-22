@@ -15,8 +15,7 @@
             <div class="card horizontal">
                 <div class="card-image">
                     <!-- <img :src="image_src" alt="" class="responsive-img"> -->
-                    <lightbox 
-                        :images="images">
+                    <lightbox :images="images" class="responsive-img">
                     </lightbox>
                 </div>
                 <div class="card-stacked">
@@ -76,6 +75,7 @@ export default {
                     'image_src': doc.data().image_src
                 }
                 this.images.push({src: data.image_src})
+                /*eslint-disable*/
                 console.log(this.images)
             })
         })
@@ -132,5 +132,8 @@ export default {
 ul.collection,
 ul.collection > li{
     border: none;
+}
+.card.horizontal .card-stacked {
+    z-index: 0;
 }
 </style>

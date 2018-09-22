@@ -1,9 +1,5 @@
 <template>
     <div id="dashboard">
-        <div class="row">
-            
-        </div>
-
         <h3 class="white-text">{{ message }}</h3>
         <div class="row">
             <div class="col s12 m6 l4" v-for="vehicle in vehicles" :key="vehicle.id">

@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <div class="row" id="preloaderWrapper">
+        <!-- <div class="row" id="preloaderWrapper">
             <div class="preloader-wrapper big active" id="preloader">
                 <div class="spinner-layer spinner-blue-only">
                 <div class="circle-clipper left">
@@ -96,11 +96,39 @@
                 </div>
             </div>
             <span id="preloder-text">Uploading...</span>
+        </div> -->
+        <div class="row">
+            <div class="modal" id="modal1">
+                <div class="modal-content center">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer valign-wrapper">
+                    <span class="indigo-text">Uploading ...</span>
+                </div>
+            </div>
         </div>
 
-        <div class="row white z-depth-3" id="upload-completed">
-            <span class="indigo-text">Image uploaded successfully</span>
+        <div class="row">
+            <div class="modal" id="modal2">
+                <div class="modal-content center">
+                    <h1 class="indigo-text">Image uploaded succesfully</h1>
+                </div>
+            </div>
         </div>
+
+        <!-- <div class="row white z-depth-3" id="upload-completed">
+            <span class="indigo-text">Image uploaded successfully</span>
+        </div> -->
     </div>
 </template>
 
@@ -152,25 +180,33 @@ export default {
 
             uploadTask.on('state_changed', function(snapshot) {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                var preloader = document.getElementById('preloaderWrapper')
-                preloader.style.display = 'block'
+                
+                var Modalelem = document.querySelector('#modal1');
+                var instance = M.Modal.init(Modalelem);
+                instance.open();
+
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log('Upload is ' + progress + '% done');
+                if(progress == 100) {
+                    instance.close();
+                }
             }, function(error) {
                 // Handle unsuccessful uploads
             }, function() {
                 // Upload completed successfully, now we can get the download URL
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                    var preloader = document.getElementById('preloaderWrapper')
-                    var uploadCompleted = document.getElementById('upload-completed')
-                    preloader.style.display = 'none'
-                    // setTimeout(function(){ uploadCompleted.style.display = 'block' }, 2000)
-                    var uploadCompletedDisplay = setInterval(uploadCompleted.style.display = 'block', 2000)
-                    clearInterval(uploadCompletedDisplay)
-                    // console.log(downloadURL);
                     self.image_src = downloadURL
                     /* eslint-disable */
                     console.log('Image source: ', self.image_src)
+                    var Modalelem = document.querySelector('#modal2');
+                    var instance = M.Modal.init(Modalelem);
+                    instance.open();
+                    function closeModal(){
+                        instance.close();
+                        var body = document.getElementsByTagName('BODY')[0];
+                        body.style.overflow = 'auto';
+                    }
+                    setTimeout(closeModal, 2000);
                 }).catch(err => {
                     /* eslint-disable */
                     console.log(err)
@@ -199,46 +235,17 @@ export default {
 </script>
 
 <style scoped>
-#preloaderWrapper {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    padding: 40px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: white;
-    border-radius: 15px;
-    display: none;
-    margin: 0;
+.modal .modal-footer {
+    text-align: center;
 }
-#preloader {
-    position: relative;
-}
-#preloder-text {
-    position: relative;
-    bottom: 0;
-    left: 0;
-    font-size: 1.2rem;
-    margin-left: -10px;
-}
-#upload-completed {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    margin: 0;
-    padding: 15px;
-    border-radius: 25px;
-    display: none;
-}
-#upload-completed span {
-    font-size: 1.75rem;
+.modal .modal-footer span {
+    margin: 0 auto;
+    font-size: 2rem;
     font-style: italic;
 }
-#upload-btn {
-    margin-left: auto;
-    margin-right: auto;
+.preloader-wrapper.big {
+    width: 120px;
+    height: 120px;
 }
 .px-0 {
     padding-left: 0;
