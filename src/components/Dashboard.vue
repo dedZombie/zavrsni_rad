@@ -1,7 +1,7 @@
 <template>
     <div id="dashboard">
         <Jumbotron />
-        
+
         <div class="container">
             <h3 class="white-text">{{ message }}</h3>
             <div class="row">
@@ -54,7 +54,7 @@ export default {
     },
     data() {
         return {
-            message: 'Most recently Added',
+            message: 'All Products',
             vehicles: []
         }
     },

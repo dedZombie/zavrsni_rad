@@ -1,13 +1,13 @@
 <template>
-    <div id="view-car">
+    <div id="view-car" class="container">
         <div class="col s12 m7">
             <div class="row valign-wrapper">
-                <div class="col s2 m2 l1 pull-l2">
+                <div class="col s2 m2 l1 pull-l1">
                     <router-link to="/" class="btn-floating btn-large waves-effect waves-light red">
                         <i class="large material-icons">arrow_back</i>
                     </router-link>
                 </div>
-                <div class="col s10 m10 l10 pull-l1">
+                <div class="col s10 m10 l11 pull-l1">
                     <h3 class="header white-text">{{ name }} {{ model }}</h3>
                 </div>
             </div>

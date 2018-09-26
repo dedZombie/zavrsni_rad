@@ -1,5 +1,5 @@
 <template>
-    <div id="edit-car">
+    <div id="edit-car" class="container">
         <h3 class="white-text">{{ message }}</h3>
         <div class="row">
             <form @submit.prevent="updateCar" class="col s12 m6 l12">

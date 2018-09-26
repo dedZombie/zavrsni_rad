@@ -1,5 +1,5 @@
 <template>
-    <div id="new-car">
+    <div id="new-car" class="container">
         <div class="row">
             <form @submit.prevent="saveCar" class="col s12">
                 <div class="row">
