@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav>
+        <nav id="navigation">
             <div class="nav-wrapper indigo">
                 <router-link to="/" class="brand-logo center">
                     <div class="valign-wrapper">
