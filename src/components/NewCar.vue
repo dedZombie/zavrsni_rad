@@ -81,54 +81,36 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- <div class="row" id="preloaderWrapper">
-            <div class="preloader-wrapper big active" id="preloader">
-                <div class="spinner-layer spinner-blue-only">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-                </div>
-            </div>
-            <span id="preloder-text">Uploading...</span>
-        </div> -->
-        <div class="row">
-            <div class="modal" id="modal1">
-                <div class="modal-content center">
-                    <div class="preloader-wrapper big active">
-                        <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                            <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
+            <div class="row">
+                <div class="modal" id="modal1">
+                    <div class="modal-content center">
+                        <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="modal-footer valign-wrapper">
+                        <span class="indigo-text">Uploading ...</span>
+                    </div>
                 </div>
-                <div class="modal-footer valign-wrapper">
-                    <span class="indigo-text">Uploading ...</span>
+            </div>
+
+            <div class="row">
+                <div class="modal" id="modal2">
+                    <div class="modal-content center">
+                        <h1 class="indigo-text">Image uploaded succesfully</h1>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="modal" id="modal2">
-                <div class="modal-content center">
-                    <h1 class="indigo-text">Image uploaded succesfully</h1>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="row white z-depth-3" id="upload-completed">
-            <span class="indigo-text">Image uploaded successfully</span>
-        </div> -->
     </div>
 </template>
 

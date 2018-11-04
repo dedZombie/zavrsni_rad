@@ -2,7 +2,7 @@
     <div id="edit-car" class="container">
         <h3 class="white-text">{{ message }}</h3>
         <div class="row">
-            <form @submit.prevent="updateCar" class="col s12 m6 l12">
+            <form @submit.prevent="updateCar" class="col s12">
                 <div class="row">
                     <div class="input-field col s12 m6 l6">
                         <input type="text" class="white-text" v-model="car_id" disabled>
@@ -53,11 +53,19 @@
                         <label class="active">Price</label>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col s6 m6 l6">
+                        <button type="submit" class="btn btn-large right w-50">Submit</button>
+                    </div>
+                    <div class="col s6 m6 l6">
+                        <router-link to="/" class="btn btn-large grey w-50">Cancel</router-link>
+                    </div>
+                </div>
             </form>
 
             <div class="row">
                 <div class="col s12 l12 valign-wrapper px-0">
-                    <div class="col s12 m6 l6">
+                    <div class="col s6 m6 l6">
                         <input 
                             style="display: none" 
                             type="file" 
@@ -65,7 +73,7 @@
                             ref="fileInput">
                         <button @click="$refs.fileInput.click()" class="btn btn-large right w-50">Select image</button>
                     </div>
-                    <div class="col s12 m6 l6">
+                    <div class="col s6 m6 l6">
                         <button class="btn btn-large w-50" id="upload-btn"
                                 @click="onUpload">Upload image
                             <i class="material-icons right">send</i>
@@ -74,16 +82,34 @@
                 </div>
             </div>
 
-            <form @submit.prevent="updateCar" class="col s12 m6 l12">
-                <div class="row">
-                    <div class="col s12 m6 l6">
-                        <button type="submit" class="btn btn-large right w-50">Submit</button>
+            <div class="row">
+                <div class="modal" id="modal1">
+                    <div class="modal-content center">
+                        <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col s12 m6 l6">
-                        <router-link to="/" class="btn btn-large grey w-50">Cancel</router-link>
+                    <div class="modal-footer valign-wrapper">
+                        <span class="indigo-text">Uploading ...</span>
                     </div>
                 </div>
-            </form>
+            </div>
+
+            <div class="row">
+                <div class="modal" id="modal2">
+                    <div class="modal-content center">
+                        <h1 class="indigo-text">Image uploaded succesfully</h1>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -226,11 +252,26 @@ export default {
     padding-left: 0;
     padding-right: 0;
 }
-.w-50 {
+.row .col.l6 > .w-50 {
     width: 50%;
+}
+.row .col.s6 > .w-50{
+    width: 100%;
 }
 input[type=text]:not(.browser-default):disabled{
     border-bottom-color: rgb(158, 158, 158);
     cursor: not-allowed;
+}
+.modal .modal-footer {
+    text-align: center;
+}
+.modal .modal-footer span {
+    margin: 0 auto;
+    font-size: 2rem;
+    font-style: italic;
+}
+.preloader-wrapper.big {
+    width: 120px;
+    height: 120px;
 }
 </style>

@@ -136,4 +136,7 @@ ul.collection > li{
 .card.horizontal .card-stacked {
     z-index: 0;
 }
+.card-image {
+    cursor: pointer;
+}
 </style>
